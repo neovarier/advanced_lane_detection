@@ -46,6 +46,11 @@ The goals / steps of this project are the following:
 ###Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
 
 ---
+My project contains:
+1. lanedetect.ipynb
+2. Ouput project video
+3. Smoothened Output project video
+4. Images for illustration in submit folder 
 
 The example code in the lessons were helpful for reference.
 
@@ -68,6 +73,8 @@ Undistorted
 ![alt text][image2]
 
 The code is present in Cell 1 and 2
+The top and bottom edges in the chessboard pattern are slightly curved which are getting corrected after undistorting the image
+
 ###Pipeline (single images)
 
 ####1. Provide an example of a distortion-corrected image.
@@ -195,6 +202,8 @@ Ai, Bi and Ci are coefficients with respect to the image pixels.
 
 ![alt text][image19]
 
+Few more example images are present in the lanedetect.ipynb
+
 ####5. At the stage where the coefficients for the polynomial are found with respect to the image plane pixels.
 To calculate the radius of curvature, the lane pixels positions are scaled to real world distances (meters) by using the folloing
 conversion factor:
@@ -273,4 +282,4 @@ It was not working for few reasons:
 
 The color and gradient thresholding were not able to detect the lane lines properly.
 I will employ more combinations of color space thresholding to make the pipeline more robust.
-Appropriate check is needed for the highly target sliding window approach, so that it can fall back to entire frame search.
+Appropriate check is needed for the highly target sliding window approach, so that it can fall back to histogram peak method
