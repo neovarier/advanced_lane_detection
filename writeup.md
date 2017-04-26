@@ -18,10 +18,10 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./submit/chess.png "Chessboard"
-[image2]: ./submit/undistort_chess.png "Undistorted Chessboard"
-[image3]: ./submit/original.png "Original Road"
-[image4]: ./submit/undistort_output.png "Road Transformed"
+[image1]: ./submit/chess.jpg "Chessboard"
+[image2]: ./submit/undistort_chess.jpg "Undistorted Chessboard"
+[image3]: ./submit/original.jpg "Original Road"
+[image4]: ./submit/undistort_output.jpg "Road Transformed"
 [image5]: ./submit/original_road.jpg "Original"
 [image6]: ./submit/S_Channel.jpg "S_Channel Thresholded"
 [image7]: ./submit/R_Channel.jpg "R_Channel Thresholded"
@@ -34,10 +34,10 @@ The goals / steps of this project are the following:
 [image14]: ./submit/gradient_x.jpg "Gradient X Thresholded"
 [image15]: ./submit/SR_Channel.jpg "SR Channel Threshold"
 [image16]: ./submit/combined.jpg "Combined"
-[image17]: ./submit/warped.jpg "Warp Example"
-[image18]: ./submit/histogram.jpg "Histogram"
-[image19]: ./submit/warped_lines.jpg "Detected Lanes"
-[image20]: ./submit/unwarped.jpg "Unwarped"
+[image17]: ./submit/warped.png "Warp Example"
+[image18]: ./submit/histogram.png "Histogram"
+[image19]: ./submit/warped_lines.png "Detected Lanes"
+[image20]: ./submit/unwarped.png "Unwarped"
 [video1]: ./out_project_final.mp4 "Video"
 [video2]: ./out_project_final_smooth.mp4 "Smooth Video"
 
@@ -66,6 +66,7 @@ Using cv2.undistort() and the camera matrix & distortion coefficient, I undistor
 
 ####1. Provide an example of a distortion-corrected image.
 First step in the pipeline is to undistort the images of the road using the camera calibration matrix and distortion coefficients
+
 ![alt text][image3] ![alt text][image4]
 
 ####2. I tried various color space thresholding using cv2 color space conversion. I narrowed down to use the following color space channels to detect the lanes:
@@ -178,9 +179,10 @@ x_image = Ar(719)^2 + Bi(719) + C
 
 center_lane is calculated by averaging the x-coordinated of both the lanes
 The car_offset in real world is calculated as,
-car_offset = (center_lane - car_center)*xm_per_pix
-####6. 
 
+car_offset = (center_lane - car_center)*xm_per_pix
+
+####6. 
 The polygon is fit using these lane lines coordinates (calculated by eq 1) on the warped image using cv2.fillPoly. 
 Using cv2.warpPerspective, the images are unwarped back.
 
@@ -190,7 +192,7 @@ The polygon edges are falling properly on the lanes lines
 
 ###Pipeline (video)
 
-####1. I used the pipeline the above pipeline on the project video and following is the result:
+####1. I used the above pipeline on the project video and following is the result:
 
 Here's a [link to my video result](./out_project_final.mp4)
 
@@ -207,7 +209,7 @@ A weighted average with the lanes of last 9 frames smoothened the lane polygon.
 Higher weights are assigned for the latest frames and lower weights for the older frames.
 With this approach, the lanes are detected in a good way.
 
-Here's a [link to my video result](out_project_final_smooth.mp4)
+Here's a [link to my smoothened video result](out_project_final_smooth.mp4)
 
 ###Discussion
 
