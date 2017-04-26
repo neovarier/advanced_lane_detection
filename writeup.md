@@ -151,10 +151,10 @@ enhances the lanes detected.
 S&R Channel
 ![alt text][image15] 
 
-S&R | GradX
+Combined Binary: S&R | GradX
 ![alt text][image16]
 
-####3. After doing the Color and Gradient thresholding, next step is to do a perspective transform on the binray images.
+####3. After doing the combination of Color and Gradient thresholding, next step is to do a perspective transform on the binray images.
 In the transform we intend to get the road from top view. This will be needed for calculating the real radius of curvature
 
 I used the following src quadrilateral and destination quadrilateral for prespective transform
