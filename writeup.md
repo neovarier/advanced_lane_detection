@@ -257,7 +257,7 @@ The polygon edges are falling properly on the lanes lines
 
 Here's a [link to my video result](./out_project_final.mp4)
 
-There further optimize my search of lanes lines, I used the lane line locations of previous image to to higly targeted search.
+For further optimizing my search of lanes lines, I used the lane line locations of previous image to do higly targeted search.
 This narrowed my search for subsequent frames. If highly targeted search does not work, the algorithm will fall back to
 histogram peak method. This code is present in detect_line() in Cell 13
 
