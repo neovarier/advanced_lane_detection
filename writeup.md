@@ -46,8 +46,9 @@ The goals / steps of this project are the following:
 ###Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
 
 ---
-###Writeup / README
+
 The example code in the lessons were helpful for reference.
+
 ###Camera Calibration
 
 ####1. I used more than 1 chessboard pattern images for camera calibration.
@@ -145,6 +146,7 @@ Using the stored pixels, I tried to fit a 2nd order polynomial using np.ployfit
 Using the computed 2nd order polynomial equation, x-coordinates for the lane line is computed for each y from y_image=0 to y_image=720.
  
 x_image = Ai(y_image)^2+Bi(y_image)+Ci ----------- eq 1
+
 This gave a image coordinates for the curved line passing through the lanes.
 Ai, Bi and Ci are coefficients with respect to the image pixels.
 
@@ -223,6 +225,3 @@ It was not working for few reasons:
 The color and gradient thresholding were not able to detect the lane lines properly.
 I will employ more combinations of color space thresholding to make the pipeline more robust.
 Appropriate check is needed for the highly target sliding window approach, so that it can fall back to entire frame search.
-
-
-
