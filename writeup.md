@@ -67,19 +67,24 @@ Distorted
 Undistorted
 ![alt text][image2]
 
+The code is present in Cell 1 and 2
 ###Pipeline (single images)
 
 ####1. Provide an example of a distortion-corrected image.
 First step in the pipeline is to undistort the images of the road using the camera calibration matrix and distortion coefficients
 
-![alt text][image3] ![alt text][image4]
+Distorted Road
+![alt text][image3] 
+
+Undistorted Road
+![alt text][image4]
 
 ####2. I tried various color space thresholding using cv2 color space conversion. I narrowed down to use the following color space channels to detect the lanes:
 *S-Channel from HSL color space
 *R-Channel from RGB color space
 
 S-channel with thresholding is good at detecting bright yellow and white lanes. Even where road segments are light grey.
-But it also detects shadows.
+But it also detects shadows. The code is rgb_r_select in Cell 5
 
 Original Image
 ![alt text][image5] 
@@ -88,19 +93,19 @@ S_Channel
 ![alt text][image6]
 
 Original Image
-![alt text][image5] 
-
-S_Channel
-![alt text][image7]
-
-R-channel with threshold is good at detecting yellow and white lanes. It avoids detecting shadows as they are darker. 
-But it detects road segments which are light gray (close to white)
-
-Original Image
 ![alt text][image8] 
 
-R_Channel
+S_Channel
 ![alt text][image9]
+
+R-channel with threshold is good at detecting yellow and white lanes. It avoids detecting shadows as they are darker. 
+But it detects road segments which are light gray (close to white). The code is  hls_s_select in Cell 7
+
+Original Image
+![alt text][image5] 
+
+R_Channel
+![alt text][image7]
 
 Original Image
 ![alt text][image8] 
@@ -124,7 +129,7 @@ S&R Channel
 
 Besides color space, sobel operator for detecting lane edges when color thresholding does not work.
 Using sobel operator for high x-gradient gives us edges which are close to vertical.
-This aligns with the lane orientation that we need. 
+This aligns with the lane orientation that we need. The function is abs_sobel_thresh in Cell 4.
 
 Original Image
 ![alt text][image13] 
@@ -157,6 +162,7 @@ dst =np.float32([[950,0],
           [300,0]])
 
 Using the cv2.getPerspectiveTransform, I computed the transform and inverse transform matrix.
+The code is present in Cell 11
 Using the transform matrix I tested one of the binary images
 
 ![alt text][image17]
@@ -170,7 +176,7 @@ This gave me the x-coordinates of the start of the lanes from the bottom.
 ![alt text][image18]
 
 I employed the sliding window approach to search for lane pixels while traversing the image from bottom to top.
-Taking this as the starting point, I took window size x=200, y=image_height/9
+Taking this as the starting point, I took window size x=200, y=image_height/9. The function is detect_line() in Cell 13
 
 1. set the window centered around the histogram peak column at the bottom of the image.
 2. Check if the enough white pixels are present in the window to be deduced as lane pixels.
@@ -208,7 +214,9 @@ After computing the equation, the radius of curvature is computed as
 
 R = ((1+(2Ay+B)^2)^1.5)/|2A|
 
-The radius of curvature is computed for both left and right lanes.
+The radius of curvature is computed for both left and right lanes. The function is find_curvature in Cell 12
+
+The following code is present in function detect_line() in Cell 13
 Average radius of curvature is calculated.
 
 R_average = (R_left + R_right)/2
@@ -227,7 +235,7 @@ car_offset = (center_lane - car_center)*xm_per_pix
 
 ####6. 
 The polygon is fit using these lane lines coordinates (calculated by eq 1) on the warped image using cv2.fillPoly. 
-Using cv2.warpPerspective, the images are unwarped back.
+Using cv2.warpPerspective, the images are unwarped back. The function is draw_lane_lines() in Cell 14
 
 ![alt text][image20]
 
@@ -235,13 +243,13 @@ The polygon edges are falling properly on the lanes lines
 
 ###Pipeline (video)
 
-####1. I used the above pipeline on the project video and following is the result:
+####1. I used the above pipeline on the project video in function process_image in Cell 17 and following is the result:
 
 Here's a [link to my video result](./out_project_final.mp4)
 
 There further optimize my search of lanes lines, I used the lane line locations of previous image to to higly targeted search.
 This narrowed my search for subsequent frames. If highly targeted search does not work, the algorithm will fall back to
-histogram peak method.
+histogram peak method. This code is present in detect_line() in Cell 13
 
 The lane polygon edges wobble sometimes when pipeline encounters
 * shadows
@@ -250,7 +258,7 @@ The lane polygon edges wobble sometimes when pipeline encounters
 I further employed smoothing of polygon edges by storing the lane line cordinated for the past 9 images.
 A weighted average with the lanes of last 9 frames smoothened the lane polygon.
 Higher weights are assigned for the latest frames and lower weights for the older frames.
-With this approach, the lanes are detected in a good way.
+With this approach, the lanes are detected in a good way. This code is present in process_image() in Cell 17
 
 Here's a [link to my smoothened video result](out_project_final_smooth.mp4)
 
