@@ -30,7 +30,7 @@ The goals / steps of this project are the following:
 [image10]: ./submit/R_Channel_2.jpg "R_Channel Thresholded"
 [image11]: ./submit/SR_1.jpg "SR_Channel Thresholded"
 [image12]: ./submit/SR_2.jpg "SR_Channel Thresholded"
-[image13]: ./submit/original_road_x.jpg "Original"
+[image13]: ./submit/orginal_road_x.jpg "Original"
 [image14]: ./submit/gradient_x.jpg "Gradient X Thresholded"
 [image15]: ./submit/SR_Channel.jpg "SR Channel Threshold"
 [image16]: ./submit/combined.jpg "Combined"
@@ -61,7 +61,11 @@ The image corner coordinates were detected using cv2.findChessboardCorners gray 
 Using cv2.callibrateCamera, the camera matrix and the distortion coefficients were calculated.
 Using cv2.undistort() and the camera matrix & distortion coefficient, I undistorted one of the chess board pattterns 
 
-![alt text][image1] ![alt text][image2]
+Distorted 
+![alt text][image1] 
+
+Undistorted
+![alt text][image2]
 
 ###Pipeline (single images)
 
@@ -77,33 +81,65 @@ First step in the pipeline is to undistort the images of the road using the came
 S-channel with thresholding is good at detecting bright yellow and white lanes. Even where road segments are light grey.
 But it also detects shadows.
 
-![alt text][image5] ![alt text][image6]
+Original Image
+![alt text][image5] 
 
-![alt text][image5] ![alt text][image7]
+S_Channel
+![alt text][image6]
+
+Original Image
+![alt text][image5] 
+
+S_Channel
+![alt text][image7]
 
 R-channel with threshold is good at detecting yellow and white lanes. It avoids detecting shadows as they are darker. 
 But it detects road segments which are light gray (close to white)
 
-![alt text][image8] ![alt text][image9]
+Original Image
+![alt text][image8] 
 
-![alt text][image8] ![alt text][image10]
+R_Channel
+![alt text][image9]
+
+Original Image
+![alt text][image8] 
+
+R_Channel
+![alt text][image10]
 
 Combining the two channels by Bitwise AND operation would compliment each others negative effects
 
-![alt text][image5] ![alt text][image11]
+Original Image
+![alt text][image5] 
 
-![alt text][image8] ![alt text][image12]
+S&R Channel
+![alt text][image11]
+
+Original Image
+![alt text][image8] 
+
+S&R Channel
+![alt text][image12]
 
 Besides color space, sobel operator for detecting lane edges when color thresholding does not work.
 Using sobel operator for high x-gradient gives us edges which are close to vertical.
 This aligns with the lane orientation that we need. 
 
-![alt text][image13] ![alt text][image14]
+Original Image
+![alt text][image13] 
+
+Sobel Gradient X
+![alt text][image14]
 
 Bitwise ORing of sobel output with the color thresholded images
 enhances the lanes detected.
 
-![alt text][image15] ![alt text][image16]
+S&R Channel
+![alt text][image15] 
+
+S&R | GradX
+![alt text][image16]
 
 ####3. After doing the Color and Gradient thresholding, next step is to do a perspective transform on the binray images.
 In the transform we intend to get the road from top view. This will be needed for calculating the real radius of curvature
