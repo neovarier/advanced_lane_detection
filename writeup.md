@@ -155,6 +155,7 @@ Ai, Bi and Ci are coefficients with respect to the image pixels.
 ####5. At the stage where the coefficients for the polynomial are found with respect to the image plane pixels.
 To calculate the radius of curvature, the lane pixels positions are scaled to real world distances (meters) by using the folloing
 conversion factor:
+
 ym_per_pix = 30/720 # meters per pixel in y dimension
 xm_per_pix = 3.7/650 # meters per pixel in x dimension
 
@@ -167,16 +168,19 @@ x_real = Ar(y_real)^2+Br(y_real)+Cr  -------------- eq 2
 Where Ar,Br and Cr are coefficients for real world
 
 After computing the equation, the radius of curvature is computed as
+
 R = ((1+(2Ay+B)^2)^1.5)/|2A|
 
 The radius of curvature is computed for both left and right lanes.
 Average radius of curvature is calculated.
+
 R_average = (R_left + R_right)/2
 
 For determining whether the car is aligned with the lanes,
 
 car_center = 1280/2 = 640
 For calculating the center_lane, the x-cordinates of both lane lines is calculated for y_image = 719 using eq 1
+
 x_image = Ar(719)^2 + Bi(719) + C
 
 center_lane is calculated by averaging the x-coordinated of both the lanes
