@@ -87,11 +87,12 @@ Undistorted Road
 ![alt text][image4]
 
 ####2. I tried various color space thresholding using cv2 color space conversion. I narrowed down to use the following color space channels to detect the lanes:
-*S-Channel from HSL color space
-*R-Channel from RGB color space
 
-S-channel with thresholding is good at detecting bright yellow and white lanes. Even where road segments are light grey.
-But it also detects shadows. The code is rgb_r_select in Cell 5
+* S-Channel from HSL color space
+* R-Channel from RGB color space
+
+S-channel with thresholding is good at detecting bright yellow and white lanes.
+But it also detects shadows. The code is rgb_r_select in Cell 5.
 
 Original Image
 ![alt text][image5] 
@@ -106,7 +107,7 @@ S_Channel
 ![alt text][image9]
 
 R-channel with threshold is good at detecting yellow and white lanes. It avoids detecting shadows as they are darker. 
-But it detects road segments which are light gray (close to white). The code is  hls_s_select in Cell 7
+But it detects road segments which are light gray (close to white). The code is  hls_s_select in Cell 7.
 
 Original Image
 ![alt text][image5] 
@@ -156,7 +157,7 @@ S&R | GradX
 ####3. After doing the Color and Gradient thresholding, next step is to do a perspective transform on the binray images.
 In the transform we intend to get the road from top view. This will be needed for calculating the real radius of curvature
 
-I use the following src quadrilateral and destination quadrilateral for prespective transform
+I used the following src quadrilateral and destination quadrilateral for prespective transform
 
 src = np.float32([[685,445],
           [1052,673],
@@ -176,7 +177,7 @@ Using the transform matrix I tested one of the binary images
 
 ####4. After doing the perspective transform, I detected the lane lines using sliding window method described in the lesson
 
-First I got the histogram of the columns in the bottom half of the image , to determine which columns have high number of pixels.
+First I got the histogram of the columns in the bottom half of the image, to determine which columns have high number of pixels.
 From the centermost column, select the peak column adjacent on the lefthand side and righthand side.
 This gave me the x-coordinates of the start of the lanes from the bottom.
 
@@ -186,7 +187,7 @@ I employed the sliding window approach to search for lane pixels while traversin
 Taking this as the starting point, I took window size x=200, y=image_height/9. The function is detect_line() in Cell 13
 
 1. set the window centered around the histogram peak column at the bottom of the image.
-2. Check if the enough white pixels are present in the window to be deduced as lane pixels.
+2. Check if there are enough white pixels are present in the window to be deduced as lane pixels.
 3. Store the lane pixel positions.
 3. Calculate the mean x-coordinates of pixels for the current window.
 4. Recenter the window and move it upwards and restart with step 1 till we reach top edge of image.
@@ -202,17 +203,17 @@ Ai, Bi and Ci are coefficients with respect to the image pixels.
 
 ![alt text][image19]
 
-Few more example images are present in the lanedetect.ipynb
+Few more example images, they are present in the lanedetect.ipynb
 
 ####5. At the stage where the coefficients for the polynomial are found with respect to the image plane pixels.
-To calculate the radius of curvature, the lane pixels positions are scaled to real world distances (meters) by using the folloing
+To calculate the radius of curvature, the lane pixels positions are scaled to real world distances (meters) by using the following
 conversion factor:
 
 ym_per_pix = 30/720 # meters per pixel in y dimension
 xm_per_pix = 3.7/650 # meters per pixel in x dimension
 
 Using conversion factor the lanes pixel positions are transformed to real-world conrdinates.
-Please note that this conversion is possible because we are doing dealing with warped images.
+Please note that this conversion is possible because we are dealing with warped images which are on ground zero plane.
 Using the real-world lane pixel coordinates, again a 2nd order polynomial is fit.
 
 x_real = Ar(y_real)^2+Br(y_real)+Cr  -------------- eq 2
@@ -252,7 +253,7 @@ The polygon edges are falling properly on the lanes lines
 
 ###Pipeline (video)
 
-####1. I used the above pipeline on the project video in function process_image in Cell 17 and following is the result:
+####1. I used the above pipeline on the project video in function process_image() in Cell 17 and following is the result:
 
 Here's a [link to my video result](./out_project_final.mp4)
 
