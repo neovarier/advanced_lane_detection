@@ -48,9 +48,10 @@ The goals / steps of this project are the following:
 ---
 My project contains:
 1. lanedetect.ipynb
-2. Ouput project video
-3. Smoothened Output project video
-4. Images for illustration in submit folder 
+2. lanedetect.html
+3. Ouput project video
+4. Smoothened Output project video
+5. Images for illustration in submit folder 
 
 The example code in the lessons were helpful for reference.
 
@@ -203,7 +204,7 @@ Ai, Bi and Ci are coefficients with respect to the image pixels.
 
 ![alt text][image19]
 
-Few more example images, they are present in the lanedetect.ipynb
+Few more example images, they are present in the lanedetect.html
 
 ####5. At the stage where the coefficients for the polynomial are found with respect to the image plane pixels.
 To calculate the radius of curvature, the lane pixels positions are scaled to real world distances (meters) by using the following
